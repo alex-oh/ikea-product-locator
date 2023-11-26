@@ -31,15 +31,16 @@ function MapView({ storesList }) {
     }, []);
 
     const onLoadMarker = (marker) => {
+        /*
         console.log(
             "marker at %d, %d created",
             marker.position.lat,
             marker.position.lng
         );
-        console.log(marker);
+        */
     };
 
-    // TODO: from stores, display the pins of the store coordinates
+    // from stores, display the pins of the store coordinates
     if (isLoaded && storesList.length != 0) {
         // create temp array to store coordinates as lat/lng
         var storesCoordinates = [];
@@ -48,21 +49,20 @@ function MapView({ storesList }) {
         for (let i = 0; i < storesList.length; i++) {
             var s = storesList[i].store;
 
-            var storeLat; 
+            var storeLat;
             if (s.name == "Nice St. Isidore") {
                 storeLat = s.coordinates[2];
-            }
-            else {
+            } else {
                 storeLat = s.coordinates[1];
             }
 
             const storeLng = s.coordinates[0];
             const storeCoord = { lat: storeLat, lng: storeLng };
 
-            if (storesList[i].stock != 0) { // only add marker if stock isn't 0
+            if (storesList[i].stock != 0) {
+                // only add marker if stock isn't 0
                 storesCoordinates.push(storeCoord);
             }
-            
         }
 
         // Generate google maps markers for each store coordinate
@@ -77,17 +77,11 @@ function MapView({ storesList }) {
                 onLoad={onLoad}
                 onUnmount={onUnmount}
             >
-                <>
-                    {storeMarkers}
-                </>
+                <>{storeMarkers}</>
             </GoogleMap>
         );
     } else {
-        return (
-            <>
-                <h2>Loading map...</h2>
-            </>
-        );
+        return <>Loading...</>;
     }
 }
 
