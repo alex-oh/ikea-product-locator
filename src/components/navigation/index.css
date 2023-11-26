@@ -1,0 +1,30 @@
+.navigation {
+    padding: .5rem 6rem;
+    background-color: #FCF467;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+}
+
+.skog-logo {
+    color: #143671;
+    text-align: left;
+    font-family: 'Nunito Sans', sans-serif;
+    line-height: 2rem;
+    margin-left: 1rem;
+}
+
+.top {
+    font-size: 2.3rem;
+    letter-spacing: -.1rem;
+}
+
+.bot {
+    font-size: 1.5rem;
+}
+
+.skog-img {
+    width: 7rem;
+
+}
