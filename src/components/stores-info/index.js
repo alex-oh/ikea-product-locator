@@ -36,7 +36,7 @@ function StoresInfo({ countryCode, itemId }) {
     const [stores, setStores] = useState([]);
 
     const loadStores = async () => {
-        const storesLoaded = await getItem(countryCode, itemId);
+        const storesLoaded = await getItem(countryCode, itemId);// todo change literal to itemId
         // convert storesLoaded to list
         const storesList = Object.values(storesLoaded);
 
@@ -45,7 +45,8 @@ function StoresInfo({ countryCode, itemId }) {
 
     useEffect(() => {
         loadStores();
-    }, [countryCode]);
+        console.log(itemId);
+    }, [countryCode, itemId]);
 
     // access each store in stores, and then pass to storedetails
     return (

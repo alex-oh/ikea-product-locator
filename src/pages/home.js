@@ -7,15 +7,20 @@ import Search from "../components/search";
 import countries from "../data/countries.json";
 
 function Home() {
-    const [selection, setSelection] = useState("us");
+    const [country, setCountry] = useState("at");
+    const [itemId, setItemId] = useState("00402813");
 
     // need to pull in data from ikea api here also. default to djungelskog
     return (
         <div>
             <Nav />
-            <Search onSelection={setSelection} />
-            <StoresInfo countryCode={selection} itemId={"00402813"} />
-            {/* <StoresInfo countryCode={selection} itemId={"00402832"} /> */}
+            <Search
+                onSelection={setCountry}
+                onItemUpdate={setItemId}
+                defaultCountry={country}
+                defaultItemId={itemId}
+            />
+            <StoresInfo countryCode={country} itemId={itemId} />
         </div>
     );
 }

@@ -41,47 +41,62 @@ function MapView({ storesList }) {
     };
 
     // from stores, display the pins of the store coordinates
-    if (isLoaded && storesList.length != 0) {
-        // create temp array to store coordinates as lat/lng
-        var storesCoordinates = [];
+    if (isLoaded) {
+        if (storesList.length != 0) {
+            // create temp array to store coordinates as lat/lng
+            var storesCoordinates = [];
 
-        // for each element in storesList collect lat/lng coordinates
-        for (let i = 0; i < storesList.length; i++) {
-            var s = storesList[i].store;
+            // for each element in storesList collect lat/lng coordinates
+            for (let i = 0; i < storesList.length; i++) {
+                var s = storesList[i].store;
 
-            var storeLat;
-            if (s.name == "Nice St. Isidore") {
-                storeLat = s.coordinates[2];
-            } else {
-                storeLat = s.coordinates[1];
+                var storeLat;
+                if (s.name == "Nice St. Isidore") {
+                    storeLat = s.coordinates[2];
+                } else {
+                    storeLat = s.coordinates[1];
+                }
+
+                const storeLng = s.coordinates[0];
+                const storeCoord = { lat: storeLat, lng: storeLng };
+
+                if (storesList[i].stock != 0) {
+                    // only add marker if stock isn't 0
+                    storesCoordinates.push(storeCoord);
+                }
             }
 
-            const storeLng = s.coordinates[0];
-            const storeCoord = { lat: storeLat, lng: storeLng };
+            // Generate google maps markers for each store coordinate
+            var storeMarkers = storesCoordinates.map((sCoord) => (
+                <MarkerF onLoad={onLoadMarker} position={sCoord} />
+            ));
 
-            if (storesList[i].stock != 0) {
-                // only add marker if stock isn't 0
-                storesCoordinates.push(storeCoord);
-            }
+            return (
+                <GoogleMap
+                    mapContainerStyle={containerStyle}
+                    zoom={15}
+                    onLoad={onLoad}
+                    onUnmount={onUnmount}
+                >
+                    <>{storeMarkers}</>
+                </GoogleMap>
+            );
         }
-
-        // Generate google maps markers for each store coordinate
-        var storeMarkers = storesCoordinates.map((sCoord) => (
-            <MarkerF onLoad={onLoadMarker} position={sCoord} />
-        ));
-
+        else {
+            return (
+                <GoogleMap
+                    mapContainerStyle={containerStyle}
+                    zoom={15}
+                    onLoad={onLoad}
+                    onUnmount={onUnmount}
+                ></GoogleMap>
+            );
+        }
+    } 
+    else { // if maps api hasn't returned anything don't display GoogleMap component
         return (
-            <GoogleMap
-                mapContainerStyle={containerStyle}
-                zoom={15}
-                onLoad={onLoad}
-                onUnmount={onUnmount}
-            >
-                <>{storeMarkers}</>
-            </GoogleMap>
-        );
-    } else {
-        return <>Loading...</>;
+            <>Loading google maps...</>
+        )
     }
 }
 
