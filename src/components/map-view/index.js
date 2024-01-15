@@ -6,6 +6,9 @@ const containerStyle = {
     height: "25em",
 };
 
+const NW_DEFAULT = { lat: 42.740265, lng: -108.382311 };
+const SE_DEFAULT = { lat: 44.133986, lng: -106.419093 };
+
 function MapView({ storesList }) {
     // token auth for google maps
     const { isLoaded } = useJsApiLoader({
@@ -14,90 +17,127 @@ function MapView({ storesList }) {
     });
 
     const [map, setMap] = useState(null);
+    const [sc, setSc] = useState([]);
 
-    // store coordinates of each store so we can show them as markers
-    const [storesCoord, setStoresCoord] = useState([]);
+    // map initial loading function
+    const onLoad = useCallback(function callback(map) {
+        // load map with default boundaries
+        loadMapBoundary(map, NW_DEFAULT, SE_DEFAULT);
+    }, []);
 
-    // map loading function
-    const onLoad = React.useCallback(function callback(map) {
-        const bounds = new window.google.maps.LatLngBounds();
+    // loads the map frame with specified boundaries
+    const loadMapBoundary = (map, nw_corner, se_corner) => {
+        const bounds = new window.google.maps.LatLngBounds(
+            nw_corner,
+            se_corner
+        );
         map.fitBounds(bounds);
         setMap(map);
-    }, []);
+    };
+
+    // calculate corners given a set of coordinates
+    // source: https://learn.microsoft.com/en-us/answers/questions/883272/find-max-min-latitude-and-longitude-from-coordinat
+    function getExtents(locations) {  
+        if(locations && locations.length > 0){  
+            var minLat = 90  
+            var maxLat = -90;  
+            var minLon = 180;  
+            var maxLon = -180;  
+      
+            for(var i = 0, len = locations.length; i < len; i++){  
+                var lat = locations[i].lat;  
+                var lon = locations[i].lng;  
+                  
+                if(lat < minLat) {  
+                    minLat = lat;  
+                }  
+                  
+                if(lat > maxLat) {  
+                    maxLat = lat;  
+                }  
+                  
+                if(lon < minLon) {  
+                    minLon = lon;  
+                }  
+                  
+                if(lon > maxLon) {  
+                    maxLon = lon;  
+                }  
+            }  
+              
+            return [minLon, minLat, maxLon, maxLat];  
+        }  
+      
+        return null;  
+    }
+
+    // load map boundary
+    useEffect(() => {
+        // check that map object exists in state
+        if (map != null && sc.length != 0) {
+            var nw = NW_DEFAULT
+            var se = SE_DEFAULT;
+
+            // calculate boundary
+            const coordRange = getExtents(sc);
+            console.log(coordRange);
+            nw = {lat: coordRange[1], lng: coordRange[0]}
+            se = {lat: coordRange[3], lng: coordRange[2]}
+
+            // load map with new calculated boundary
+            loadMapBoundary(map, nw, se);
+            console.log("loading map boundary");
+        }
+    }, [sc]);
 
     // map unloading function
     const onUnmount = React.useCallback(function callback(map) {
         setMap(null);
     }, []);
 
-    const onLoadMarker = (marker) => {
-        /*
-        console.log(
-            "marker at %d, %d created",
-            marker.position.lat,
-            marker.position.lng
-        );
-        */
-    };
+    // create temp array to store coordinates as lat/lng
+    var storeCoords = []; // TODO: refactor to only use sc state variable, remove this temp variable
+    var storeMarkers = [];
 
-    // from stores, display the pins of the store coordinates
-    if (isLoaded) {
+    useEffect(() => {
         if (storesList.length != 0) {
-            // create temp array to store coordinates as lat/lng
-            var storesCoordinates = [];
-
             // for each element in storesList collect lat/lng coordinates
             for (let i = 0; i < storesList.length; i++) {
                 var s = storesList[i].store;
-
                 var storeLat;
-                if (s.name == "Nice St. Isidore") {
-                    storeLat = s.coordinates[2];
-                } else {
-                    storeLat = s.coordinates[1];
-                }
-
+                storeLat = s.coordinates[1];
                 const storeLng = s.coordinates[0];
-                const storeCoord = { lat: storeLat, lng: storeLng };
 
+                // only add marker if stock isn't 0
                 if (storesList[i].stock != 0) {
-                    // only add marker if stock isn't 0
-                    storesCoordinates.push(storeCoord);
+                    storeCoords.push({ lat: storeLat, lng: storeLng });
                 }
+
+                // Use store coordinates to define map boundaries
+                setSc(storeCoords);
             }
-
-            // Generate google maps markers for each store coordinate
-            var storeMarkers = storesCoordinates.map((sCoord) => (
-                <MarkerF onLoad={onLoadMarker} position={sCoord} />
-            ));
-
-            return (
-                <GoogleMap
-                    mapContainerStyle={containerStyle}
-                    zoom={15}
-                    onLoad={onLoad}
-                    onUnmount={onUnmount}
-                >
-                    <>{storeMarkers}</>
-                </GoogleMap>
-            );
         }
-        else {
-            return (
-                <GoogleMap
-                    mapContainerStyle={containerStyle}
-                    zoom={15}
-                    onLoad={onLoad}
-                    onUnmount={onUnmount}
-                ></GoogleMap>
-            );
-        }
-    } 
-    else { // if maps api hasn't returned anything don't display GoogleMap component
-        return (
-            <>Loading google maps...</>
-        )
-    }
+    }, [storesList]);
+
+    // Generate google maps markers for each store coordinate
+    storeMarkers = sc.map((pinLocation) => <MarkerF position={pinLocation} />);
+
+    console.log("storeMarkers", storeMarkers);
+
+    // from stores, display the pins of the store coordinates
+    return isLoaded ? (
+        <GoogleMap
+            mapContainerStyle={containerStyle}
+            zoom={15}
+            onLoad={onLoad}
+            onUnmount={onUnmount}
+        >
+            <>{storeMarkers}</>
+        </GoogleMap>
+    ) : (
+        // if maps api hasn't returned anything don't display GoogleMap component
+        <>Loading google maps...</>
+    );
 }
 
 export default MapView;
