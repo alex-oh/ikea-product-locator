@@ -45,7 +45,6 @@ function StoresInfo({ countryCode, itemId }) {
 
     useEffect(() => {
         loadStores();
-        console.log(itemId);
     }, [countryCode, itemId]);
 
     // access each store in stores, and then pass to storedetails
