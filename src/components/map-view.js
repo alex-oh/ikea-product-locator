@@ -1,15 +1,20 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 
+import "./map-view.css";
+
 const containerStyle = {
-    width: "90%",
+    width: "95%",
     height: "25em",
+    "border-radius": "10px",
 };
 
 const NW_DEFAULT = { lat: 46.639934, lng: 11.431081 };
 const SE_DEFAULT = { lat: 48.255641, lng: 16.47254 };
 
 function MapView({ storesList }) {
+    var className = "mapContainer";
+
     // token auth for google maps
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
@@ -32,7 +37,7 @@ function MapView({ storesList }) {
             nw_corner,
             se_corner
         );
-    
+
         map.fitBounds(bounds);
         setMap(map);
     };
@@ -90,8 +95,7 @@ function MapView({ storesList }) {
             // load map with new calculated boundary
             loadMapBoundary(map, nw, se);
             console.log("loading map boundary - sc has changed");
-        }
-        else {
+        } else {
             console.log("map is null");
         }
     }, [sc]);
@@ -135,17 +139,19 @@ function MapView({ storesList }) {
 
     // from stores, display the pins of the store coordinates
     return isLoaded ? (
-        <GoogleMap
-            mapContainerStyle={containerStyle}
-            zoom={15}
-            onLoad={onLoad}
-            onUnmount={onUnmount}
-        >
-            <>{storeMarkers}</>
-        </GoogleMap>
+        <div className={className}>
+            <GoogleMap
+                mapContainerStyle={containerStyle}
+                zoom={15}
+                onLoad={onLoad}
+                onUnmount={onUnmount}
+            >
+                <>{storeMarkers}</>
+            </GoogleMap>
+        </div>
     ) : (
         // if maps api hasn't returned anything don't display GoogleMap component
-        <>Loading google maps...</>
+        <div className={className}>Loading google maps...</div>
     );
 }
 
