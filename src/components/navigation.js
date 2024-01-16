@@ -1,6 +1,6 @@
 import React from "react";
-import "./index.css";
-import logo from "../../assets/images/big-djungelskog.png"
+import "./navigation.css";
+import logo from "../assets/images/big-djungelskog.png"
 
 function Nav() {
     return (
