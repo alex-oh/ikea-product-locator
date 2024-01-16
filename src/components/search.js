@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import countries from "../../data/countries.json";
+import countries from "../data/countries.json";
 
 function pad(pad, str, padLeft) {
     // source: https://stackoverflow.com/questions/2686855/is-there-a-javascript-function-that-can-pad-a-string-to-get-to-a-determined-leng

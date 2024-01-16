@@ -1,6 +1,6 @@
 import React from "react";
 
-import StoreDetails from "../store-details";
+import StoreDetails from "./store-details";
 import stores from "../../data/stores.json";
 
 const Region = ({ country }) => {

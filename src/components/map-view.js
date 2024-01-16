@@ -13,7 +13,7 @@ function MapView({ storesList }) {
     // token auth for google maps
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
-        googleMapsApiKey: "AIzaSyAtOkVFG3KbOaGdKqXHHyOQWtABKMT7YjQ",
+        googleMapsApiKey: "AIzaSyAtOkVFG3KbOaGdKqXHHyOQWtABKMT7YjQ", //TODO: make this an environment variable...
     });
 
     const [map, setMap] = useState(null);

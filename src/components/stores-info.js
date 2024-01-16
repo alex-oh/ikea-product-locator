@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import StoreDetails from "../store-details";
-import MapView from "../../components/map-view";
-import countries from "../../data/countries.json";
+import StoreDetails from "./store-details";
+import MapView from "./map-view";
+import countries from "../data/countries.json";
 
 // import ikea availability checker library
 const checker = require("ikea-availability-checker");
