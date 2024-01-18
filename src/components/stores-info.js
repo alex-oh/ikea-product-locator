@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+import "./stores-info.css";
+
 import StoreDetails from "./store-details";
 import MapView from "./map-view";
 import countries from "../data/countries.json";
@@ -34,9 +36,10 @@ const getCountryName = (countryCode) => {
 
 function StoresInfo({ countryCode, itemId }) {
     const [stores, setStores] = useState([]);
+    let className = "storesInfo";
 
     const loadStores = async () => {
-        const storesLoaded = await getItem(countryCode, itemId);// todo change literal to itemId
+        const storesLoaded = await getItem(countryCode, itemId); // todo change literal to itemId
         // convert storesLoaded to list
         const storesList = Object.values(storesLoaded);
 
@@ -49,17 +52,20 @@ function StoresInfo({ countryCode, itemId }) {
 
     // access each store in stores, and then pass to storedetails
     return (
-        <div>
+        <div className={className}>
             <MapView storesList={stores} />
-            <h1>{getCountryName(countryCode)}</h1>
-            <h3>Country ID: {countryCode}</h3>
-            {stores.length != 0 ? (
-                stores
-                    .filter((s) => s.stock != 0)
-                    .map((s) => <StoreDetails key={s._id} storeInfo={s} />)
-            ) : (
-                <h2>None found</h2>
-            )}
+            
+            <div className="storeDetailList">
+                <h1>{getCountryName(countryCode)}</h1>
+                {/* <h3>Country ID: {countryCode}</h3> */}
+                {stores.length != 0 ? (
+                    stores
+                        .filter((s) => s.stock != 0)
+                        .map((s) => <StoreDetails key={s._id} storeInfo={s} />)
+                ) : (
+                    <h2>None found</h2>
+                )}
+            </div>
         </div>
     );
 }
