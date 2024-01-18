@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import "./search.css";
+
 import countries from "../data/countries.json";
 
 function pad(pad, str, padLeft) {
@@ -15,6 +17,7 @@ function pad(pad, str, padLeft) {
 function Search({ onSelection, onItemUpdate, defaultCountry, defaultItemId }) {
     const [searchBar, setSearchBar] = useState("");
     const [countryDropdown, setCountryDropdown] = useState("");
+    const [searchIsHovered, setSearchIsHovered] = useState(false);
 
     var countrySelection = countries.map((c) => (
         <option value={c.countryCode}>{c.name}</option>
@@ -37,10 +40,12 @@ function Search({ onSelection, onItemUpdate, defaultCountry, defaultItemId }) {
         onSelection(countryDropdown);
     };
 
+    let searchButtonClass = "searchButton";
+
     return (
-        <div>
+        <div className="search">
             {/* Country selection dropdown */}
-            <div>
+            <div className="searchItem">
                 <span>Country</span>
                 <select
                     name="country"
@@ -52,7 +57,7 @@ function Search({ onSelection, onItemUpdate, defaultCountry, defaultItemId }) {
                 </select>
             </div>
             {/* Search bar */}
-            <div>
+            <div className="searchItem">
                 <span>Enter Product ID:</span>
                 <input
                     type="text"
@@ -61,8 +66,10 @@ function Search({ onSelection, onItemUpdate, defaultCountry, defaultItemId }) {
                     defaultValue={defaultItemId}
                     onChange={setSearchBar}
                 />
-                <button onClick={updateItemSearched}>Search</button>
             </div>
+            <button className={searchButtonClass} onClick={updateItemSearched}>
+                Search
+            </button>
         </div>
     );
 }
