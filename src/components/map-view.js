@@ -6,7 +6,7 @@ import "./map-view.css";
 const containerStyle = {
     width: "100%",
     height: "25em",
-    "border-radius": "10px",
+    borderRadius: "10px",
 };
 
 const NW_DEFAULT = { lat: 46.639934, lng: 11.431081 };
@@ -135,7 +135,7 @@ function MapView({ storesList }) {
     }, [storesList]);
 
     // Generate google maps markers for each store coordinate
-    storeMarkers = sc.map((pinLocation) => <MarkerF position={pinLocation} />);
+    storeMarkers = sc.map((pinLocation, i) => <MarkerF key={i} position={pinLocation} />);
 
     // from stores, display the pins of the store coordinates
     return isLoaded ? (

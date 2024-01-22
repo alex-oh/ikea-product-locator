@@ -19,8 +19,8 @@ function Search({ onSelection, onItemUpdate, defaultCountry, defaultItemId }) {
     const [countryDropdown, setCountryDropdown] = useState("");
     const [searchIsHovered, setSearchIsHovered] = useState(false);
 
-    var countrySelection = countries.map((c) => (
-        <option value={c.countryCode}>{c.name}</option>
+    var countrySelection = countries.map((c, i) => (
+        <option key={i} value={c.countryCode}>{c.name}</option>
     ));
 
     const updateCountryDropdown = () => {
