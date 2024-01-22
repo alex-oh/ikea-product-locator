@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
+import { getExtents } from "../utils.js";
 
 import "./map-view.css";
 
@@ -41,42 +42,6 @@ function MapView({ storesList }) {
         map.fitBounds(bounds);
         setMap(map);
     };
-
-    // calculate corners given a set of coordinates
-    // source: https://learn.microsoft.com/en-us/answers/questions/883272/find-max-min-latitude-and-longitude-from-coordinat
-    function getExtents(locations) {
-        if (locations && locations.length > 0) {
-            var minLat = 90;
-            var maxLat = -90;
-            var minLon = 180;
-            var maxLon = -180;
-
-            for (var i = 0, len = locations.length; i < len; i++) {
-                var lat = locations[i].lat;
-                var lon = locations[i].lng;
-
-                if (lat < minLat) {
-                    minLat = lat;
-                }
-
-                if (lat > maxLat) {
-                    maxLat = lat;
-                }
-
-                if (lon < minLon) {
-                    minLon = lon;
-                }
-
-                if (lon > maxLon) {
-                    maxLon = lon;
-                }
-            }
-
-            return [minLon, minLat, maxLon, maxLat];
-        }
-
-        return null;
-    }
 
     // load map boundary
     useEffect(() => {
@@ -135,7 +100,9 @@ function MapView({ storesList }) {
     }, [storesList]);
 
     // Generate google maps markers for each store coordinate
-    storeMarkers = sc.map((pinLocation, i) => <MarkerF key={i} position={pinLocation} />);
+    storeMarkers = sc.map((pinLocation, i) => (
+        <MarkerF key={i} position={pinLocation} />
+    ));
 
     // from stores, display the pins of the store coordinates
     return isLoaded ? (
