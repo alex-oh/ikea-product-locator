@@ -29,15 +29,20 @@ function Search({ onSelection, onItemUpdate, defaultCountry, defaultItemId }) {
     };
 
     const updateItemSearched = () => {
+        var searchBarValue = document.getElementById("itemSearch").value.split('.').join("");
         const searchItemId = pad(
             "00000000",
-            document.getElementById("itemSearch").value,
+            searchBarValue,
             true
         );
-        onItemUpdate(searchItemId);
-
-        // update country selected
-        onSelection(countryDropdown);
+        try {
+            onItemUpdate(searchItemId);
+            // update country selected
+            onSelection(countryDropdown);
+        }
+        catch (error) {
+            console.log(error);
+        }
     };
 
     let searchButtonClass = "searchButton";
