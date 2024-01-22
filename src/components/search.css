@@ -4,7 +4,7 @@
     align-items: top;
     text-align: left;
     
-    margin-left: 6rem;
+    margin-left: 6em;
     margin-top: 0.5em;
     min-height: 3em;
 }
@@ -61,6 +61,10 @@ input:hover {
 }
 
 .searchButton:hover {
-    width: 5em;
     outline: 2px solid;
+}
+
+.searchButton:active {
+    background-color: black;
+    color: white
 }
