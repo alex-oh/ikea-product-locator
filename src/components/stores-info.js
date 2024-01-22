@@ -61,7 +61,7 @@ function StoresInfo({ countryCode, itemId }) {
                 {stores.length != 0 ? (
                     stores
                         .filter((s) => s.stock != 0)
-                        .map((s) => <StoreDetails key={s._id} storeInfo={s} />)
+                        .map((s, i) => <StoreDetails key={i} storeInfo={s} />)
                 ) : (
                     <h2>None found</h2>
                 )}
