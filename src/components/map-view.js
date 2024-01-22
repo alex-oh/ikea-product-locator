@@ -4,7 +4,7 @@ import { GoogleMap, MarkerF, useJsApiLoader } from "@react-google-maps/api";
 import "./map-view.css";
 
 const containerStyle = {
-    width: "95%",
+    width: "100%",
     height: "25em",
     "border-radius": "10px",
 };
