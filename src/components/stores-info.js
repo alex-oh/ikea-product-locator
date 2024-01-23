@@ -36,17 +36,26 @@ const getCountryName = (countryCode) => {
     return countryCode;
 };
 
-function StoresInfo({ countryCode, itemId }) {
+function StoresInfo({ countryCode, itemId, onItemFound }) {
     const [stores, setStores] = useState([]);
     const [service, setService] = useState(null);
     let className = "storesInfo";
 
     const loadStores = async () => {
-        const storesLoaded = await getItem(countryCode, itemId); // todo change literal to itemId
-        // convert storesLoaded to list
-        const storesList = Object.values(storesLoaded);
-
-        setStores(storesList);
+        try {
+            const storesLoaded = await getItem(countryCode, itemId); // todo change literal to itemId
+            // convert storesLoaded to list
+            const storesList = Object.values(storesLoaded);
+            setStores(storesList);
+            if (storesList.length != 0) {
+                onItemFound(true);
+            } else {
+                onItemFound(false);
+            }
+        } catch (error) {
+            onItemFound(false);
+            console.log("item dne"); // todo: show feedback that item was searched unsuccessfully
+        }
     };
 
     useEffect(() => {
@@ -77,11 +86,11 @@ function StoresInfo({ countryCode, itemId }) {
                 {stores.length != 0 ? (
                     stores
                         .filter((s) => s.stock != 0)
-                        .map((s, i) =>
+                        .map((store, i) =>
                             service ? (
                                 <StoreDetails
-                                    key={s.createdAt}
-                                    storeInfo={s}
+                                    key={store.createdAt}
+                                    storeInfo={store}
                                     service={service}
                                 />
                             ) : (
@@ -89,7 +98,7 @@ function StoresInfo({ countryCode, itemId }) {
                             )
                         )
                 ) : (
-                    <h2>None found</h2>
+                    <></>
                 )}
             </div>
         </div>

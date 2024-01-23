@@ -4,11 +4,10 @@ import Nav from "../components/navigation";
 import StoresInfo from "../components/stores-info";
 import Search from "../components/search";
 
-import countries from "../data/countries.json";
-
 function Home() {
     const [country, setCountry] = useState("at");
     const [itemId, setItemId] = useState("00402813");
+    const [itemFound, setItemFound] = useState(false);
 
     // need to pull in data from ikea api here also. default to djungelskog
     return (
@@ -19,8 +18,9 @@ function Home() {
                 onItemUpdate={setItemId}
                 defaultCountry={country}
                 defaultItemId={itemId}
+                itemFoundStatus={itemFound} // gives us feedback on whether item was found in storesInfo component
             />
-            <StoresInfo countryCode={country} itemId={itemId} />
+            <StoresInfo countryCode={country} itemId={itemId} onItemFound={setItemFound} />
         </div>
     );
 }
