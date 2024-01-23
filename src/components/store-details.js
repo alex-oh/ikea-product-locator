@@ -7,6 +7,15 @@ const StoreDetails = ({ storeInfo, service }) => {
     let className = "storeDetail";
     const storeDetail = storeInfo.store;
 
+    let storeStockClass = "storeStock";
+    if (storeInfo.stock > 50) {
+        storeStockClass += "-hi";
+    } else if (storeInfo.stock >= 20) {
+        storeStockClass += "-med";
+    } else {
+        storeStockClass += "-low";
+    }
+
     // get latitude and longitude
     const lat = storeDetail.coordinates[1];
     const lng = storeDetail.coordinates[0];
@@ -102,23 +111,33 @@ const StoreDetails = ({ storeInfo, service }) => {
             <div className="storeLocation">
                 <h3>{storeDetail.name}</h3>
                 <p>{storeAddress != null ? storeAddress.address : ""}</p>
-                {/* Store Operating Hours */}
-                <p>
-                    {placeDetails != null
-                        ? placeDetails.opening_hours.weekday_text.map((day) => {
-                              return <p>{day}</p>;
-                          })
-                        : ""}
-                </p>
-                <p>
-                    {placeDetails != null ? <a href={placeDetails.url}>Google Maps</a> : ""}
-                </p>
-                <p>
-                    {placeDetails != null ? <a href={placeDetails.website}>Website</a> : ""}
-                </p>
+                <div className={`storeStock ${storeStockClass}`}>
+                    <h3>Stock: {storeInfo.stock}</h3>
+                </div>
+                {placeDetails != null ? (
+                    <div className="storeLinks">
+                        <a href={placeDetails.url} target="_blank">
+                            Google Maps
+                        </a>
+                        <br />
+                        <a href={placeDetails.website} target="_blank">
+                            Website
+                        </a>
+                    </div>
+                ) : (
+                    ""
+                )}
             </div>
-            <div className="storeStock">
-                <h3>Stock: {storeInfo.stock}</h3>
+            {/* Store Operating Hours */}
+            <div className="storeHours">
+                <b>
+                    <u>Hours</u>
+                </b>
+                {placeDetails != null
+                    ? placeDetails.opening_hours.weekday_text.map((day) => {
+                          return <p>{day}</p>;
+                      })
+                    : ""}
             </div>
         </div>
     );

@@ -3,17 +3,38 @@
     padding: .5rem 0rem;
     display:flex;
     flex-direction: row;
-
     border-bottom: 1px solid lightgray  ;
 }
 
 .storeLocation {
-    min-width: 20em;
+    min-width: 24em;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.storeHours {
+    min-width: 8em;
+    margin-right: 4em;
 }
 
 .storeStock {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    min-width: 6rem;
+    border: 1px solid;
+    border-radius: 3px;
+    padding: .5em;
+    margin-right: auto;
+    -webkit-text-stroke-color: black;
+}
+
+.storeStock-hi {
+    background-color: lime;
+}
+
+.storeStock-med {
+    background-color: orange
+}
+
+.storeStock-low {
+    background-color: red
 }
