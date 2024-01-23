@@ -42,11 +42,14 @@ function StoresInfo({ countryCode, itemId }) {
     let className = "storesInfo";
 
     const loadStores = async () => {
-        const storesLoaded = await getItem(countryCode, itemId); // todo change literal to itemId
-        // convert storesLoaded to list
-        const storesList = Object.values(storesLoaded);
-
-        setStores(storesList);
+        try {
+            const storesLoaded = await getItem(countryCode, itemId); // todo change literal to itemId
+            // convert storesLoaded to list
+            const storesList = Object.values(storesLoaded);
+            setStores(storesList);
+        } catch (error) {
+            console.log("item dne"); // todo: show feedback that item was searched unsuccessfully
+        }
     };
 
     useEffect(() => {

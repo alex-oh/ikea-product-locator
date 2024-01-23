@@ -8,7 +8,7 @@ const StoreDetails = ({ storeInfo, service }) => {
     const storeDetail = storeInfo.store;
 
     let storeStockClass = "storeStock";
-    if (storeInfo.stock > 50) {
+    if (storeInfo.stock > 40) {
         storeStockClass += "-hi";
     } else if (storeInfo.stock >= 20) {
         storeStockClass += "-med";

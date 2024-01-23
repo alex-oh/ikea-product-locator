@@ -17,7 +17,6 @@ function pad(pad, str, padLeft) {
 function Search({ onSelection, onItemUpdate, defaultCountry, defaultItemId }) {
     const [searchBar, setSearchBar] = useState(defaultItemId);
     const [countryDropdown, setCountryDropdown] = useState(defaultCountry);
-    const [searchIsHovered, setSearchIsHovered] = useState(false);
 
     var countrySelection = countries.map((c, i) => (
         <option key={i} value={c.countryCode}>{c.name}</option>

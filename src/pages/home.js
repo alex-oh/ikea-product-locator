@@ -4,8 +4,6 @@ import Nav from "../components/navigation";
 import StoresInfo from "../components/stores-info";
 import Search from "../components/search";
 
-import countries from "../data/countries.json";
-
 function Home() {
     const [country, setCountry] = useState("at");
     const [itemId, setItemId] = useState("00402813");
