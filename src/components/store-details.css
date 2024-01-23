@@ -8,6 +8,7 @@
 
 .storeLocation {
     min-width: 24em;
+    text-wrap: wrap;
     margin-right: auto;
     display: flex;
     flex-direction: column;

@@ -111,8 +111,10 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
     return (
         <div className={className}>
             <div className="storeLocation">
-                <h3>{storeDetail.name}</h3>
-                <p>{storeAddress != null ? storeAddress.address : ""}</p>
+                <div>
+                    <h3>{storeDetail.name}</h3>
+                    <p>{storeAddress != null ? storeAddress.address : ""}</p>
+                </div>
                 <div className={`storeStock ${storeStockClass}`}>
                     <h3>Stock: {storeInfo.stock}</h3>
                 </div>
