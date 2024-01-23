@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./store-details.css";
 
-import {fromPlaceId } from "react-geocode";
+import { fromPlaceId } from "react-geocode";
 
 const StoreDetails = ({ storeInfo, service }) => {
     let className = "storeDetail";
@@ -13,9 +13,10 @@ const StoreDetails = ({ storeInfo, service }) => {
 
     const [storeAddress, setStoreAddress] = useState(null);
     const [placeId, setPlaceId] = useState("");
+    const [placeDetails, setPlaceDetails] = useState(null);
 
     const getPlaceIdFromLatLng = async (lat, lng) => {
-        // Get formatted address, city, state, country from latitude & longitude.
+        // Get store's placeId from latitude & longitude.
         try {
             // find the ikea store closest to input lat/lng coordinates
             // make a placeId request using the bounds and keyword "ikea"
@@ -70,25 +71,51 @@ const StoreDetails = ({ storeInfo, service }) => {
 
     // request the address of the placeId given, using fromPlaceId()
     useEffect(() => {
-        async function getAddressFromPlaceId() {
+        async function getInfoFromPlaceId() {
             if (placeId != "") {
                 try {
                     const { results } = await fromPlaceId(`${placeId}`);
                     formatAddressResult(results);
+
+                    const detailsRequest = {
+                        placeId: `${placeId}`,
+                        fields: ["url", "website", "opening_hours"],
+                    };
+
+                    service.getDetails(
+                        detailsRequest,
+                        function (place, status) {
+                            // console.log("place Details:", place);
+                            setPlaceDetails(place);
+                        }
+                    );
                 } catch (e) {
                     console.log(e);
                 }
             }
         }
-        getAddressFromPlaceId();
+        getInfoFromPlaceId();
     }, [placeId]);
 
     return (
         <div className={className}>
             <div className="storeLocation">
                 <h3>{storeDetail.name}</h3>
-                <p>{storeAddress != null ? storeAddress.address : ""}<br/>
-                {storeAddress != null ? `${storeAddress.city}, ${storeAddress.state}, ${storeAddress.country}` : ""}</p>
+                <p>{storeAddress != null ? storeAddress.address : ""}</p>
+                {/* Store Operating Hours */}
+                <p>
+                    {placeDetails != null
+                        ? placeDetails.opening_hours.weekday_text.map((day) => {
+                              return <p>{day}</p>;
+                          })
+                        : ""}
+                </p>
+                <p>
+                    {placeDetails != null ? <a href={placeDetails.url}>Google Maps</a> : ""}
+                </p>
+                <p>
+                    {placeDetails != null ? <a href={placeDetails.website}>Website</a> : ""}
+                </p>
             </div>
             <div className="storeStock">
                 <h3>Stock: {storeInfo.stock}</h3>
