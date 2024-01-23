@@ -68,3 +68,16 @@ input:hover {
     background-color: black;
     color: white
 }
+
+.itemFoundStatus {
+    margin-left: 1em;
+    margin-top: auto;
+}
+
+.itemFoundStatus-true {
+    color: green
+}  
+
+.itemFoundStatus-false {
+    color: red
+}

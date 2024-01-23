@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "./search.css";
 
 import countries from "../data/countries.json";
+import { useEffect } from "react";
 
 function pad(pad, str, padLeft) {
     // source: https://stackoverflow.com/questions/2686855/is-there-a-javascript-function-that-can-pad-a-string-to-get-to-a-determined-leng
@@ -14,12 +15,20 @@ function pad(pad, str, padLeft) {
     }
 }
 
-function Search({ onSelection, onItemUpdate, defaultCountry, defaultItemId }) {
+function Search({
+    onSelection,
+    onItemUpdate,
+    defaultCountry,
+    defaultItemId,
+    itemFoundStatus,
+}) {
     const [searchBar, setSearchBar] = useState(defaultItemId);
     const [countryDropdown, setCountryDropdown] = useState(defaultCountry);
 
     var countrySelection = countries.map((c, i) => (
-        <option key={i} value={c.countryCode}>{c.name}</option>
+        <option key={i} value={c.countryCode}>
+            {c.name}
+        </option>
     ));
 
     const updateCountryDropdown = () => {
@@ -28,23 +37,24 @@ function Search({ onSelection, onItemUpdate, defaultCountry, defaultItemId }) {
     };
 
     const updateItemSearched = () => {
-        var searchBarValue = document.getElementById("itemSearch").value.split('.').join("");
-        const searchItemId = pad(
-            "00000000",
-            searchBarValue,
-            true
-        );
+        var searchBarValue = document
+            .getElementById("itemSearch")
+            .value.split(".")
+            .join("");
+        const searchItemId = pad("00000000", searchBarValue, true);
         try {
             onItemUpdate(searchItemId);
             // update country selected
             onSelection(countryDropdown);
-        }
-        catch (error) {
+        } catch (error) {
             console.log(error);
         }
     };
 
     let searchButtonClass = "searchButton";
+
+    let itemFoundStatusClass = "itemFoundStatus";
+    itemFoundStatus ? itemFoundStatusClass += "-true" : itemFoundStatusClass += "-false";
 
     return (
         <div className="search">
@@ -74,6 +84,9 @@ function Search({ onSelection, onItemUpdate, defaultCountry, defaultItemId }) {
             <button className={searchButtonClass} onClick={updateItemSearched}>
                 Search
             </button>
+            <div className={`itemFoundStatus ${itemFoundStatusClass}`}>
+                <p>{itemFoundStatus ? "Item found!" : "Item not found"}</p>
+            </div>
         </div>
     );
 }
