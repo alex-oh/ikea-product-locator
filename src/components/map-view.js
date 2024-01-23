@@ -13,13 +13,15 @@ const containerStyle = {
 const NW_DEFAULT = { lat: 46.639934, lng: 11.431081 };
 const SE_DEFAULT = { lat: 48.255641, lng: 16.47254 };
 
-function MapView({ storesList }) {
+function MapView({ storesList, passPlacesService }) {
     var className = "mapContainer";
 
     // token auth for google maps
+    const [ libraries ] = useState(['maps', 'places']);
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
         googleMapsApiKey: "AIzaSyAtOkVFG3KbOaGdKqXHHyOQWtABKMT7YjQ", //TODO: make this an environment variable...
+        libraries,
     });
 
     const [map, setMap] = useState(null);
@@ -29,7 +31,7 @@ function MapView({ storesList }) {
     const onLoad = useCallback(function callback(map) {
         // load map with default boundaries
         loadMapBoundary(map, NW_DEFAULT, SE_DEFAULT);
-        console.log("loading default map boundary");
+        // console.log("loading default map boundary");
     }, []);
 
     // loads the map frame with specified boundaries
@@ -41,6 +43,7 @@ function MapView({ storesList }) {
 
         map.fitBounds(bounds);
         setMap(map);
+        passPlacesService(new window.google.maps.places.PlacesService(map));
     };
 
     // load map boundary
@@ -53,13 +56,12 @@ function MapView({ storesList }) {
             if (sc.length != 0) {
                 // calculate boundary
                 const coordRange = getExtents(sc);
-                console.log(coordRange);
                 nw = { lat: coordRange[1], lng: coordRange[0] };
                 se = { lat: coordRange[3], lng: coordRange[2] };
             }
             // load map with new calculated boundary
             loadMapBoundary(map, nw, se);
-            console.log("loading map boundary - sc has changed");
+            // console.log("loading map boundary - sc has changed");
         } else {
             console.log("map is null");
         }
@@ -75,7 +77,7 @@ function MapView({ storesList }) {
     var storeMarkers = [];
 
     const getListOfCoordinates = () => {
-        console.log("getting list of coordinates");
+        // console.log("getting list of coordinates");
         if (storesList.length != 0) {
             // for each element in storesList collect lat/lng coordinates
             for (let i = 0; i < storesList.length; i++) {

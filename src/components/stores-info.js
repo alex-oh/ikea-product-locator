@@ -6,6 +6,8 @@ import StoreDetails from "./store-details";
 import MapView from "./map-view";
 import countries from "../data/countries.json";
 
+import { setDefaults } from "react-geocode";
+
 // import ikea availability checker library
 const checker = require("ikea-availability-checker");
 
@@ -36,6 +38,7 @@ const getCountryName = (countryCode) => {
 
 function StoresInfo({ countryCode, itemId }) {
     const [stores, setStores] = useState([]);
+    const [service, setService] = useState(null);
     let className = "storesInfo";
 
     const loadStores = async () => {
@@ -47,21 +50,44 @@ function StoresInfo({ countryCode, itemId }) {
     };
 
     useEffect(() => {
+        // set defaults for react geocode
+        setDefaults({
+            key: "AIzaSyAtOkVFG3KbOaGdKqXHHyOQWtABKMT7YjQ", // Your API key here.
+            language: "en", // Default language for responses.
+            region: "us", // Default region for responses.
+        });
+    }, []);
+
+    useEffect(() => {
         loadStores();
     }, [countryCode, itemId]);
 
+    // useEffect(() => {
+    //     console.log("places service has been updated: ", service);
+    // }, [service]);
+
     // access each store in stores, and then pass to storedetails
+    // TODO: fix child unique key render error with MapView component
     return (
         <div className={className}>
-            <MapView storesList={stores} />
-            
+            <MapView storesList={stores} passPlacesService={setService} />
+
             <div className="storeDetailList">
                 <h1>{getCountryName(countryCode)}</h1>
-                {/* <h3>Country ID: {countryCode}</h3> */}
                 {stores.length != 0 ? (
                     stores
                         .filter((s) => s.stock != 0)
-                        .map((s, i) => <StoreDetails key={i} storeInfo={s} />)
+                        .map((s, i) =>
+                            service ? (
+                                <StoreDetails
+                                    key={s.createdAt}
+                                    storeInfo={s}
+                                    service={service}
+                                />
+                            ) : (
+                                <></>
+                            )
+                        )
                 ) : (
                     <h2>None found</h2>
                 )}
