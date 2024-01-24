@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# Djungelskog Hunter
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img alt="Logo" align="right" src="./src/assets/images/big-djungelskog.png" width="20%" />
 
-## Available Scripts
+Djungelskog Hunter is a web tool for finding out where your favorite Ikea products can be bought all over the world.
 
-In the project directory, you can run:
+Deployed Site: [hyperlinkhere](ikea.com)
 
-### `npm start`
+## How to run it:
+**Requirements:** Node 14.0.0 or later  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Clone [this repo](https://github.com/alex-oh/ikea-product-locator).
+2. Run the app by typing `npm start` in the terminal while in the top level directory.  
+3. Open http://localhost:3000 to view it in the browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Demo
+TODO put a gif here
 
-### `npm test`
+## How it's made:
+### Tech Used: React, Javascript, HTML, CSS
+### Libraries & APIs:
+- [ikea-availability-checker](https://github.com/Ephigenia/ikea-availability-checker) - Ikea API library
+- [Google Maps Places API](https://developers.google.com/maps/documentation/places/web-service/overview)
+- [react-geocode](https://github.com/shukerullah/react-geocode) - React library for Google Maps Geocode API
+- [react-google-maps]() - React library for Google Maps Maps API
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Background
+"DJUNGELSKOG Soft toy, brown bear" is a very cute stuffed animal product that Ikea sells. However, many people think that it's cute, and on top of that, DJUNGELSKOG is not sold in every country, even if there are Ikea stores there. These two points mean that locating DJUNGELSKOG can be more difficult than expected.
 
-### `npm run build`
+I wanted a quick way to find DJUNGELSKOG near me since it was very cute. This tool also works to search any other product made by Ikea.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Future Improvements
+my project is perfect... just kidding
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## What I learned
+I learned a lot more about using callback functions to pass data between components more easily, as well as handling asynchronous requests/responses in varying capacities. In my efforts to use different portions of the Google Maps API (Maps, Places, Geocoder) with the help of various libraries and documentation, I developed a much stronger conceptualization of APIs and their usage. Lastly, I grew far more comfortable with `useState` and `useEffect` and passing props into components.
