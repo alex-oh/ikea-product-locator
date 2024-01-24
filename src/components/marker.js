@@ -29,6 +29,14 @@ function Marker({ store }) {
             <MarkerF
                 key={store.createdAt}
                 position={pinLocation}
+                options={{
+                    label: {
+                        text: `${store.stock}`,
+                        color: "white",
+                        fontWeight: "600",
+                        fontSize: "16px"
+                    },
+                }}
                 onClick={changeIsShown}
             />
             {isShown ? (
