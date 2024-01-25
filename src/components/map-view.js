@@ -1,8 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
-import {
-    GoogleMap,
-    useJsApiLoader,
-} from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { getExtents } from "../utils.js";
 
 import "./map-view.css";
@@ -75,26 +72,24 @@ function MapView({ storesList, passPlacesService }) {
     }, []);
 
     // create temp arrays to store coordinates/stores as lat/lng
-    var storeCoordsTemp = [];
-    var storesInStockTemp = [];
-    var storeMarkers = [];
+
     const [storesInStock, setStoresInStock] = useState([]);
 
     const getStoresInStock = () => {
+        var storeCoordsTemp = [];
+        var storesInStockTemp = [];
+
         if (storesList.length != 0) {
             // for each element in storesList collect lat/lng coordinates
             for (let i = 0; i < storesList.length; i++) {
-                const ikeaStore = storesList[i][0]
+                const ikeaStore = storesList[i][0];
                 const storeLat = ikeaStore.store.coordinates[1];
                 const storeLng = ikeaStore.store.coordinates[0];
 
-                // only add marker if stock isn't 0
-                if (storesList[i].stock != 0) {
-                    // add lat/lng object to storeCoords for boundary checking
-                    storeCoordsTemp.push({ lat: storeLat, lng: storeLng });
-                    // add store object to an array that tracks stores in stock
-                    storesInStockTemp.push(storesList[i]);
-                }
+                // add lat/lng object to storeCoords for boundary checking
+                storeCoordsTemp.push({ lat: storeLat, lng: storeLng });
+                // add store object to an array that tracks stores in stock
+                storesInStockTemp.push(storesList[i]);
 
                 // Set state to a list of all stores with stock present
                 setStoresInStock(storesInStockTemp);
@@ -110,8 +105,11 @@ function MapView({ storesList, passPlacesService }) {
     }, [storesList]);
 
     // Generate google maps markers for each store coordinate
-    storeMarkers = storesInStock.map((store) => (<Marker store={store}/>));
-        
+    var storeMarkers = [];
+    storeMarkers = storesInStock.map((store) => (
+        <Marker key={store[1].createdAt} store={store} />
+    ));
+
     // from stores, display the pins of the store coordinates
     return isLoaded ? (
         <div className={className}>

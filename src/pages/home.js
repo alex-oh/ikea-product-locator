@@ -53,7 +53,6 @@ function Home() {
             }
         } catch (error) {
             setItemFound(false);
-            console.log("item dne");
         }
     };
 
