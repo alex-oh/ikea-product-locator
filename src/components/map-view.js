@@ -35,7 +35,6 @@ function MapView({ storesList, passPlacesService }) {
     const onLoad = useCallback(function callback(map) {
         // load map with default boundaries
         loadMapBoundary(map, NW_DEFAULT, SE_DEFAULT);
-        // console.log("loading default map boundary");
     }, []);
 
     // loads the map frame with specified boundaries
@@ -65,7 +64,6 @@ function MapView({ storesList, passPlacesService }) {
             }
             // load map with new calculated boundary
             loadMapBoundary(map, nw, se);
-            // console.log("loading map boundary - storeCoords has changed");
         } else {
             console.log("map is null");
         }
@@ -86,8 +84,9 @@ function MapView({ storesList, passPlacesService }) {
         if (storesList.length != 0) {
             // for each element in storesList collect lat/lng coordinates
             for (let i = 0; i < storesList.length; i++) {
-                const storeLat = storesList[i].store.coordinates[1];
-                const storeLng = storesList[i].store.coordinates[0];
+                const ikeaStore = storesList[i][0]
+                const storeLat = ikeaStore.store.coordinates[1];
+                const storeLng = ikeaStore.store.coordinates[0];
 
                 // only add marker if stock isn't 0
                 if (storesList[i].stock != 0) {

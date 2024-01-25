@@ -2,8 +2,11 @@ import React, { useState, useCallback, useEffect } from "react";
 import {
     MarkerF,
     OverlayViewF,
-    OVERLAY_MOUSE_TARGET,
+    FLOAT_PANE,
+    MAP_PANE,
     MARKER_LAYER,
+    OVERLAY_LAYER,
+    OVERLAY_MOUSE_TARGET,
 } from "@react-google-maps/api";
 
 import "./marker.css";
@@ -12,16 +15,19 @@ import "../styles/fonts.css";
 function Marker({ store }) {
     // isShown sets popup dialogue as visible or not
     const [isShown, setIsShown] = useState(false);
-    const [overlayPane, setOverlayPane] = useState(MARKER_LAYER);
+    const [overlayPane, setOverlayPane] = useState(FLOAT_PANE);
+
+    const storeIkeaData = store[0];
+    const storeDetail = store[1];
 
     const changeIsShown = useCallback(() => {
         setIsShown(!isShown);
     }, [isShown]);
 
-    console.log(store);
+    // console.log(store);
     const pinLocation = {
-        lat: store.store.coordinates[1],
-        lng: store.store.coordinates[0],
+        lat: storeIkeaData.store.coordinates[1],
+        lng: storeIkeaData.store.coordinates[0],
     };
 
     return (
@@ -31,10 +37,10 @@ function Marker({ store }) {
                 position={pinLocation}
                 options={{
                     label: {
-                        text: `${store.stock}`,
+                        text: `${storeIkeaData.stock}`,
                         color: "white",
                         fontWeight: "600",
-                        fontSize: "16px"
+                        fontSize: "16px",
                     },
                 }}
                 onClick={changeIsShown}
@@ -42,9 +48,15 @@ function Marker({ store }) {
             {isShown ? (
                 <OverlayViewF position={pinLocation} mapPaneName={overlayPane}>
                     <div className="overlayWindow">
-                        {store.store.name}
+                        {storeIkeaData.store.name}
                         <br />
-                        <b>Stock: {store.stock}</b>
+                        <b>Stock: {storeIkeaData.stock}</b>
+                        <br />
+                        <a href={storeDetail.url} target="_blank">
+                            Google Maps
+                        </a>
+                        <br/>
+                        <a href={storeDetail.website} target="_blank">Website</a>
                     </div>
                 </OverlayViewF>
             ) : null}

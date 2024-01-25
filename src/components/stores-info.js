@@ -9,6 +9,7 @@ import { setDefaults } from "react-geocode";
 
 function StoresInfo({ countryName, stores, onServiceCallback }) {
     const [service, setService] = useState(null);
+    const [allStoresDetails, setAllStoresDetails] = useState([]);
     let className = "storesInfo";
 
     useEffect(() => {
@@ -20,11 +21,16 @@ function StoresInfo({ countryName, stores, onServiceCallback }) {
         });
     }, []);
 
+    // callback function that adds storeDetails to an array of all of the store details
+    const storeDetailCallback = (storeDetails) => {
+        setAllStoresDetails((prevDetails) => [...prevDetails, storeDetails]);
+    }
+
     // access each store in stores, and then pass to storedetails
     // TODO: fix child unique key render error with MapView component
     return (
         <div className={className}>
-            <MapView storesList={stores} passPlacesService={setService} />
+            <MapView storesList={allStoresDetails} passPlacesService={setService} />
 
             <div className="storeDetailList">
                 <h1>{countryName}</h1>
@@ -36,6 +42,7 @@ function StoresInfo({ countryName, stores, onServiceCallback }) {
                                       key={store.createdAt}
                                       storeInfo={store}
                                       service={service}
+                                      storeDetailCallback={storeDetailCallback}
                                   />
                               ) : null
                           )
