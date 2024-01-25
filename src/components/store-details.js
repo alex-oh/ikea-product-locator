@@ -3,7 +3,7 @@ import "./store-details.css";
 
 import { fromPlaceId } from "react-geocode";
 
-const StoreDetails = ({ storeInfo, service }) => {
+const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
     let className = "storeDetail";
     const storeDetail = storeInfo.store;
 
@@ -94,8 +94,10 @@ const StoreDetails = ({ storeInfo, service }) => {
                     service.getDetails(
                         detailsRequest,
                         function (place, status) {
-                            // console.log("place Details:", place);
+                            // set component state to place details for rendering
                             setPlaceDetails(place);
+                            // send place details data to store-info level
+                            storeDetailCallback([storeInfo, place]);
                         }
                     );
                 } catch (e) {
