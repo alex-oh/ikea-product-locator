@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import {
-    MarkerF,
     OverlayViewF,
     FLOAT_PANE,
     MAP_PANE,
@@ -11,6 +10,7 @@ import {
 
 /**
  * Hook that alerts clicks outside of the passed ref
+ * source: https://stackoverflow.com/questions/32553158/detect-click-outside-react-component
  */
 function useOutsideAlerter(ref, clickOutsideCallback, isShown) {
     useEffect(() => {

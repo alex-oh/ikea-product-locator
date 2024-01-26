@@ -7,7 +7,7 @@ import MapView from "./map-view";
 
 import { setDefaults } from "react-geocode";
 
-function StoresInfo({ countryName, stores, onServiceCallback }) {
+function StoresInfo({ countryName, stores }) {
     const [service, setService] = useState(null);
     const [allStoresDetails, setAllStoresDetails] = useState([]);
     const [prevStores, setPrevStores] = useState(stores);
@@ -24,7 +24,7 @@ function StoresInfo({ countryName, stores, onServiceCallback }) {
     useEffect(() => {
         // set defaults for react geocode
         setDefaults({
-            key: "AIzaSyAtOkVFG3KbOaGdKqXHHyOQWtABKMT7YjQ", // Your API key here.
+            key: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
             language: "en", // Default language for responses.
             region: "us", // Default region for responses.
         });

@@ -21,7 +21,7 @@ function MapView({ storesList, passPlacesService }) {
     const [libraries] = useState(["maps", "places"]);
     const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
-        googleMapsApiKey: "AIzaSyAtOkVFG3KbOaGdKqXHHyOQWtABKMT7YjQ", //TODO: make this an environment variable...
+        googleMapsApiKey: `${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`,
         libraries,
     });
 
