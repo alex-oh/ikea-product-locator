@@ -4,6 +4,7 @@ import { getExtents } from "../utils.js";
 
 import "./map-view.css";
 import Marker from "./marker.js";
+import StoreDetails from "./store-details.js";
 
 const containerStyle = {
     width: "100%",
@@ -79,23 +80,28 @@ function MapView({ storesList, passPlacesService }) {
         var storeCoordsTemp = [];
         var storesInStockTemp = [];
 
-        if (storesList.length != 0) {
+        if (
+            storesList.length != 0 &&
+            storesList[0][0].store.coordinates != null
+        ) {
             // for each element in storesList collect lat/lng coordinates
             for (let i = 0; i < storesList.length; i++) {
                 const ikeaStore = storesList[i][0];
                 const storeLat = ikeaStore.store.coordinates[1];
                 const storeLng = ikeaStore.store.coordinates[0];
 
-                // add lat/lng object to storeCoords for boundary checking
-                storeCoordsTemp.push({ lat: storeLat, lng: storeLng });
-                // add store object to an array that tracks stores in stock
-                storesInStockTemp.push(storesList[i]);
+                if (ikeaStore.stock > 0) {
+                    // add lat/lng object to storeCoords for boundary checking
+                    storeCoordsTemp.push({ lat: storeLat, lng: storeLng });
+                    // add store object to an array that tracks stores in stock
+                    storesInStockTemp.push(storesList[i]);
 
-                // Set state to a list of all stores with stock present
-                setStoresInStock(storesInStockTemp);
+                    // Set state to a list of all stores with stock present
+                    setStoresInStock(storesInStockTemp);
 
-                // Use store coordinates to define map boundaries
-                setStoreCoords(storeCoordsTemp);
+                    // Use store coordinates to define map boundaries
+                    setStoreCoords(storeCoordsTemp);
+                }
             }
         }
     };
@@ -106,9 +112,9 @@ function MapView({ storesList, passPlacesService }) {
 
     // Generate google maps markers for each store coordinate
     var storeMarkers = [];
-    storeMarkers = storesInStock.map((store) => (
-        <Marker key={store[1].createdAt} store={store} />
-    ));
+    storeMarkers = storesInStock.map((store) => {
+        return <Marker key={store[0].buCode} store={store} />;
+    });
 
     // from stores, display the pins of the store coordinates
     return isLoaded ? (

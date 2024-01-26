@@ -19,7 +19,7 @@ function useOutsideAlerter(ref, clickOutsideCallback, isShown) {
          */
         function handleClickOutside(event) {
             if (ref.current && !ref.current.contains(event.target) && isShown) {
-                console.log("You clicked outside of me!");
+                // console.log("You clicked outside of me!");
 
                 // hide the component
                 clickOutsideCallback(false);

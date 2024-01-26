@@ -36,7 +36,6 @@ function StoresInfo({ countryName, stores }) {
     };
 
     // access each store in stores, and then pass to storedetails
-    // TODO: fix child unique key render error with MapView component
     return (
         <div className={className}>
             <MapView
@@ -50,7 +49,7 @@ function StoresInfo({ countryName, stores }) {
                     ? stores.map((store, i) =>
                           service ? (
                               <StoreDetails
-                                  key={store.createdAt}
+                                  key={store.buCode + store.createdAt}
                                   storeInfo={store}
                                   service={service}
                                   storeDetailCallback={storeDetailCallback}
