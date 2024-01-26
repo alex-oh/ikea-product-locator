@@ -79,7 +79,7 @@ function MapView({ storesList, passPlacesService }) {
         var storeCoordsTemp = [];
         var storesInStockTemp = [];
 
-        if (storesList.length != 0) {
+        if (storesList.length != 0 && storesList[0][0].store.coordinates != null) {
             // for each element in storesList collect lat/lng coordinates
             for (let i = 0; i < storesList.length; i++) {
                 const ikeaStore = storesList[i][0];

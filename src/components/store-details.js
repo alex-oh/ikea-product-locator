@@ -17,8 +17,8 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
     }
 
     // get latitude and longitude
-    const lat = storeDetail.coordinates[1];
-    const lng = storeDetail.coordinates[0];
+    // const lat = storeDetail.coordinates[1];
+    // const lng = storeDetail.coordinates[0];
 
     const [storeAddress, setStoreAddress] = useState(null);
     const [placeId, setPlaceId] = useState("");
@@ -75,7 +75,11 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
 
     // get placeId from latitude/longitude. only executes when component first initialized
     useEffect(() => {
-        getPlaceIdFromLatLng(lat, lng);
+        if (storeDetail.coordinates != null) {
+            const lat = storeDetail.coordinates[1];
+            const lng = storeDetail.coordinates[0];
+            getPlaceIdFromLatLng(lat, lng);
+        }
     }, []);
 
     // request the address of the placeId given, using fromPlaceId()
