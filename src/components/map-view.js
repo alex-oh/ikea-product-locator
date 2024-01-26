@@ -62,7 +62,7 @@ function MapView({ storesList, passPlacesService }) {
             // load map with new calculated boundary
             loadMapBoundary(map, nw, se);
         } else {
-            console.log("map is null");
+            // console.log("map is null");
         }
     }, [storeCoords]);
 
