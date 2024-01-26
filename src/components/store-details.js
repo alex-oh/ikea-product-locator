@@ -132,9 +132,7 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
                             Website
                         </a>
                     </div>
-                ) : (
-                    ""
-                )}
+                ) : null}
             </div>
             {/* Store Operating Hours */}
             <div className="storeHours">
@@ -143,7 +141,8 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
                 </b>
                 {placeDetails != null
                     ? placeDetails.opening_hours.weekday_text.map((day) => {
-                          return <p>{day}</p>;
+                          const keyVal = placeDetails.url + day;
+                          return <p key={keyVal}>{day}</p>;
                       })
                     : ""}
             </div>

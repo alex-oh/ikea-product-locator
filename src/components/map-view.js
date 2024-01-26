@@ -112,9 +112,9 @@ function MapView({ storesList, passPlacesService }) {
 
     // Generate google maps markers for each store coordinate
     var storeMarkers = [];
-    storeMarkers = storesInStock.map((store) => (
-        <Marker key={store[1].createdAt} store={store} />
-    ));
+    storeMarkers = storesInStock.map((store) => {
+        return <Marker key={store[0].buCode} store={store} />;
+    });
 
     // from stores, display the pins of the store coordinates
     return isLoaded ? (

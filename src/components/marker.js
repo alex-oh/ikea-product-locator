@@ -25,7 +25,6 @@ function Marker({ store }) {
     return (
         <>
             <MarkerF
-                key={storeDetail.createdAt}
                 position={pinLocation}
                 options={{
                     label: {
@@ -39,7 +38,6 @@ function Marker({ store }) {
             />
             {isShown ? (
                 <MarkerInfo
-                    key={storeDetail.createdAt}
                     store={store}
                     position={pinLocation}
                     handleClickOutside={setIsShown}
