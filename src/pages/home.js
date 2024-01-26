@@ -43,6 +43,7 @@ function Home() {
     const loadStores = async () => {
         try {
             const storesLoaded = await getItem(countryCode, itemId);
+            console.log("storesLoaded", storesLoaded);
             // convert storesLoaded to list
             const storesList = Object.values(storesLoaded);
             setStores(storesList);
