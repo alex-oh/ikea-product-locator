@@ -8,7 +8,7 @@ function Nav() {
             <img src={logo} className="skog-img" alt="djungelskog"></img>
             <div className="skog-logo">
                 <h1 className="top">DJUNGELSKOG</h1>
-                <h3 className="bot">LOCATOR</h3>
+                <h3 className="bot">HUNTER</h3>
             </div>
         </div>
     );
