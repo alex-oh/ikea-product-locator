@@ -53,6 +53,7 @@ function Home() {
                 setItemFound(false);
             }
         } catch (error) {
+            console.log(error);
             setItemFound(false);
         }
     };
