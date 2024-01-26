@@ -42,7 +42,7 @@ function Home() {
 
     const loadStores = async () => {
         try {
-            const storesLoaded = await getItem(countryCode, itemId); // todo change literal to itemId
+            const storesLoaded = await getItem(countryCode, itemId);
             // convert storesLoaded to list
             const storesList = Object.values(storesLoaded);
             setStores(storesList);
