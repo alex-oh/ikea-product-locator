@@ -1,7 +1,7 @@
 .storeDetail {
     text-align: left;
     padding: .5rem 0rem;
-    display:flex;
+    display: flex;
     flex-direction: row;
     border-bottom: 1px solid lightgray  ;
 }
@@ -9,7 +9,6 @@
 .storeLocation {
     min-width: 24em;
     text-wrap: wrap;
-    margin-right: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -18,6 +17,7 @@
 .storeHours {
     min-width: 8em;
     margin-right: 4em;
+    margin-left: auto;
 }
 
 .storeStock {
@@ -38,4 +38,41 @@
 
 .storeStock-low {
     background-color: red
+}
+
+@media (max-width: 2400px) {
+    .storeHours {
+        margin-left: 8em;
+    }
+}
+@media (max-width: 1100px) {
+    .storeHours {
+        margin-left: auto;
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .storeDetail {
+        flex-direction: column;
+    }
+
+    .storeLocation {
+        min-width: 0;
+    }
+    .storeLocation p {
+        text-wrap: wrap;
+    }
+
+    .storeHours {
+        margin-top: 1em;
+        margin-right: auto;
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 600px) {
+    .storeDetail {
+        padding: 0rem;
+    }
 }
