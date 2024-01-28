@@ -6,3 +6,9 @@
     align-items: center;
     float:left;
 }
+
+@media (max-width: 600px) {
+    .mapContainer {
+        padding: 0em .5em;
+    }
+}

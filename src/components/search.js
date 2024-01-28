@@ -54,7 +54,9 @@ function Search({
     let searchButtonClass = "searchButton";
 
     let itemFoundStatusClass = "itemFoundStatus";
-    itemFoundStatus ? itemFoundStatusClass += "-true" : itemFoundStatusClass += "-false";
+    itemFoundStatus
+        ? (itemFoundStatusClass += "-true")
+        : (itemFoundStatusClass += "-false");
 
     return (
         <div className="search">
@@ -72,7 +74,7 @@ function Search({
             </div>
             {/* Search bar */}
             <div className="searchItem">
-                <span>Enter Product ID:</span>
+                <span>Enter Ikea Article Number:</span>
                 <input
                     type="text"
                     name="itemId"
@@ -81,11 +83,16 @@ function Search({
                     onChange={setSearchBar}
                 />
             </div>
-            <button className={searchButtonClass} onClick={updateItemSearched}>
-                Search
-            </button>
-            <div className={`itemFoundStatus ${itemFoundStatusClass}`}>
-                <p>{itemFoundStatus ? "Item found!" : "Item not found"}</p>
+            <div className="searchItem buttonDiv">
+                <button
+                    className={searchButtonClass}
+                    onClick={updateItemSearched}
+                >
+                    Search
+                </button>
+                <div className={`itemFoundStatus ${itemFoundStatusClass}`}>
+                    <p>{itemFoundStatus ? "Item found!" : "Item not found"}</p>
+                </div>
             </div>
         </div>
     );
