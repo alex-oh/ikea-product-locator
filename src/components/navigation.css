@@ -26,5 +26,23 @@
 
 .skog-img {
     width: 7rem;
+}
 
+@media (max-width: 900px) {
+    .navigation {
+        padding: .5rem 3rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .navigation {
+        padding: .5rem 1rem;
+    }
+    .skog-img {
+        width: 5rem;
+    }
+    .top {
+        font-size: 1.8rem;
+        letter-spacing: -.1rem;
+    }
 }

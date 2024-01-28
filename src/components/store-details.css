@@ -53,26 +53,29 @@
 }
 
 @media (max-width: 900px) {
-    .storeDetail {
-        flex-direction: column;
-    }
-
     .storeLocation {
-        min-width: 0;
+        min-width: 50%;
     }
     .storeLocation p {
         text-wrap: wrap;
     }
 
     .storeHours {
+        min-width: 50%;
         margin-top: 1em;
         margin-right: auto;
-        margin-left: 0;
+        margin-left: 1em;
     }
 }
 
 @media (max-width: 600px) {
     .storeDetail {
-        padding: 0rem;
+        flex-direction: column;
+    }
+    .storeDetail {
+        padding: .5rem 0rem;
+    }
+    .storeHours {
+        margin-left: 0;
     }
 }
