@@ -4,7 +4,7 @@
 
 Djungelskog Hunter is a web tool for finding out where your favorite Ikea products can be bought all over the world.
 
-Deployed Site: [hyperlinkhere](ikea.com)
+Deployed Site: [djungelskog.netlify.app](djungelskog.netlify.app)
 
 ## How to run it:
 **Requirements:** Node 14.0.0 or later  
