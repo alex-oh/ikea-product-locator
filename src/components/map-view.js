@@ -90,18 +90,17 @@ function MapView({ storesList, passPlacesService }) {
                 const storeLat = ikeaStore.store.coordinates[1];
                 const storeLng = ikeaStore.store.coordinates[0];
 
-                if (ikeaStore.stock > 0) {
-                    // add lat/lng object to storeCoords for boundary checking
-                    storeCoordsTemp.push({ lat: storeLat, lng: storeLng });
-                    // add store object to an array that tracks stores in stock
-                    storesInStockTemp.push(storesList[i]);
+                // add lat/lng object to storeCoords for boundary checking
+                storeCoordsTemp.push({ lat: storeLat, lng: storeLng });
+                // add store object to an array that tracks stores in stock
+                storesInStockTemp.push(storesList[i]);
 
-                    // Set state to a list of all stores with stock present
-                    setStoresInStock(storesInStockTemp);
+                // Set state to a list of all stores with stock present
+                setStoresInStock(storesInStockTemp);
 
-                    // Use store coordinates to define map boundaries
-                    setStoreCoords(storeCoordsTemp);
-                }
+                // Use store coordinates to define map boundaries
+                setStoreCoords(storeCoordsTemp);
+            
             }
         }
     };

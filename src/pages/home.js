@@ -44,7 +44,7 @@ function Home() {
         try {
             const storesLoaded = await getItem(countryCode, itemId);
             // convert storesLoaded to list
-            const storesList = Object.values(storesLoaded);
+            const storesList = Object.values(storesLoaded).filter((store) => store.stock != 0);
             setStores(storesList);
             if (storesList.length != 0) {
                 setItemFound(true);
