@@ -12,6 +12,7 @@
 
 .search span {
     margin-bottom: .5em;
+    text-wrap: nowrap;
 }
 
 .searchItem {
