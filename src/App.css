@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+footer {
+    margin: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5em;
+}
+
+a { 
+    height: 32px;
+}
+
+.github-icon {
+    max-width: 32px;
+}
+
+@media (max-width: 600px) {
+    footer {
+        justify-content: left;
+    }
+}
