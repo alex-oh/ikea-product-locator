@@ -21,7 +21,7 @@ Deployed Site: [djungelskog.netlify.app](djungelskog.netlify.app)
 ![Demo - Search product in new country](src/assets/demos/search-new-product.gif)
 
 ## How it's made:
-### Tech Used: React, Javascript, HTML, CSS
+### Tech Used: React, Javascript, HTML, CSS, Netlify (deploy)
 ### Libraries & APIs:
 - [ikea-availability-checker](https://github.com/Ephigenia/ikea-availability-checker) - Ikea API library
 - [Google Maps Places API](https://developers.google.com/maps/documentation/places/web-service/overview)
