@@ -36,6 +36,7 @@ I wanted a quick way to find DJUNGELSKOG near me since it was very cute. This to
 *__Caveat__: Product numbers are issued by region. This means that a product in the United States has a different article number than the same product in the European or Asia-Pacific regions.*
 
 ## Future Improvements
+- Handle API responses more predictably - sometimes, an API request is rejected but the component still renders, without that requested data.
 - Use Google Maps API directly instead of using libraries for more control over maps objects (FMarker, FOverlay, etc are a bit hard to work with). This might simplify the logic used to work with the maps components.
 - Feature: correlate ikea product numbers across different countries.
 - Feature: toggle switch to search for big djungelskog or small djungelskog on command
