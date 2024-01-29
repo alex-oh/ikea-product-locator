@@ -14,7 +14,11 @@ Deployed Site: [djungelskog.netlify.app](djungelskog.netlify.app)
 3. Open http://localhost:3000 to view it in the browser.
 
 ## Demo
-TODO put a gif here
+### Searching a country for a product:
+![Demo - Search Country](src/assets/demos/search-country.gif)
+
+### Searching a new product in a different country:
+![Demo - Search product in new country](src/assets/demos/search-new-product.gif)
 
 ## How it's made:
 ### Tech Used: React, Javascript, HTML, CSS
@@ -29,8 +33,13 @@ TODO put a gif here
 
 I wanted a quick way to find DJUNGELSKOG near me since it was very cute. This tool also works to search any other product made by Ikea.
 
+*__Caveat__: Product numbers are issued by region. This means that a product in the United States has a different article number than the same product in the European or Asia-Pacific regions.*
+
 ## Future Improvements
-my project is perfect... just kidding
+- Use Google Maps API directly instead of using libraries for more control over maps objects (FMarker, FOverlay, etc are a bit hard to work with). This might simplify the logic used to work with the maps components.
+- Feature: correlate ikea product numbers across different countries.
+- Feature: toggle switch to search for big djungelskog or small djungelskog on command
+- Improve visual search result feedback to improve user experience
 
 ## What I learned
 I learned a lot more about using callback functions to pass data between components more easily, as well as handling asynchronous requests/responses in varying capacities. In my efforts to use different portions of the Google Maps API (Maps, Places, Geocoder) with the help of various libraries and documentation, I developed a much stronger conceptualization of APIs and their usage. Lastly, I grew far more comfortable with `useState` and `useEffect` and passing props into components.
