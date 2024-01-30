@@ -16,10 +16,6 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
         storeStockClass += "-low";
     }
 
-    // get latitude and longitude
-    // const lat = storeDetail.coordinates[1];
-    // const lng = storeDetail.coordinates[0];
-
     const [storeAddress, setStoreAddress] = useState(null);
     const [placeId, setPlaceId] = useState("");
     const [placeDetails, setPlaceDetails] = useState(null);
@@ -36,7 +32,6 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
                     locationBias: new window.google.maps.LatLng(lat, lng),
                 };
                 service.findPlaceFromQuery(request, function (results, status) {
-                    // console.log("results:", results[0].place_id);
                     setPlaceId(results[0].place_id);
                 });
             } else {
@@ -76,8 +71,14 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
     // get placeId from latitude/longitude. only executes when component first initialized
     useEffect(() => {
         if (storeDetail.coordinates != null) {
-            const lat = storeDetail.coordinates[1];
-            const lng = storeDetail.coordinates[0];
+            var lat = storeDetail.coordinates[1];
+            var lng = storeDetail.coordinates[0];
+
+            // TODO refactor lat/lng passing to avoid copy pasting code
+            if (storeDetail.name == 'Vaughan') {
+                lat = "43.7872497";
+                lng = "-79.5291876";
+            }
             getPlaceIdFromLatLng(lat, lng);
         }
     }, []);
@@ -139,7 +140,7 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
                 <b>
                     <u>Hours</u>
                 </b>
-                {placeDetails != null
+                {placeDetails != null && placeDetails.opening_hours != null
                     ? placeDetails.opening_hours.weekday_text.map((day) => {
                           const keyVal = placeDetails.url + day;
                           return <p key={keyVal}>{day}</p>;

@@ -35,10 +35,11 @@ const getCountryName = (countryCode) => {
 };
 
 function Home() {
-    const [countryCode, setCountryCode] = useState("at");
-    const [itemId, setItemId] = useState("00402813");
+    const [countryCode, setCountryCode] = useState(countries[1].countryCode);
+    const [itemId, setItemId] = useState(countries[1].pid);
     const [itemFound, setItemFound] = useState(false);
     const [stores, setStores] = useState([]);
+    const [countriesItemDict, setCountriesItemDict] = useState(null);
 
     const loadStores = async () => {
         try {
@@ -58,7 +59,18 @@ function Home() {
     };
 
     useEffect(() => {
+        // convert countries.json into dict for product id correlation
+        var tempDict = {}
+        countries.map((c) => {
+            tempDict[c.countryCode] = c.pid;
+            return null;
+        });
+        setCountriesItemDict(tempDict);
+    }, [])
+
+    useEffect(() => {
         loadStores();
+        // console.log(countryCode, itemId);
     }, [countryCode, itemId]);
 
     // need to pull in data from ikea api here also. default to djungelskog
@@ -71,6 +83,7 @@ function Home() {
                 defaultCountry={countryCode}
                 defaultItemId={itemId}
                 itemFoundStatus={itemFound} // gives us feedback on whether item was found in storesInfo component
+                countriesItemDict={countriesItemDict}
             />
             <StoresInfo countryName={getCountryName(countryCode)} stores={stores} />
         </div>

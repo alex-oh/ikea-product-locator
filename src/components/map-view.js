@@ -87,8 +87,14 @@ function MapView({ storesList, passPlacesService }) {
             // for each element in storesList collect lat/lng coordinates
             for (let i = 0; i < storesList.length; i++) {
                 const ikeaStore = storesList[i][0];
-                const storeLat = ikeaStore.store.coordinates[1];
-                const storeLng = ikeaStore.store.coordinates[0];
+                var storeLat = ikeaStore.store.coordinates[1];
+                var storeLng = ikeaStore.store.coordinates[0];
+
+                // TODO refactor lat/lng passing to avoid copy pasting code
+                if (ikeaStore.store.name == 'Vaughan') {
+                    storeLat = 43.7872497;
+                    storeLng = -79.5291876;
+                }
 
                 // add lat/lng object to storeCoords for boundary checking
                 storeCoordsTemp.push({ lat: storeLat, lng: storeLng });
@@ -111,8 +117,8 @@ function MapView({ storesList, passPlacesService }) {
 
     // Generate google maps markers for each store coordinate
     var storeMarkers = [];
-    storeMarkers = storesInStock.map((store) => {
-        return <Marker key={store[0].buCode} store={store} />;
+    storeMarkers = storesInStock.map((store, i) => {
+        return <Marker key={i + store[0].buCode + store[0].createdAt} store={store} />;
     });
 
     // from stores, display the pins of the store coordinates
