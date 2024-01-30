@@ -73,6 +73,8 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
         if (storeDetail.coordinates != null) {
             var lat = storeDetail.coordinates[1];
             var lng = storeDetail.coordinates[0];
+
+            // TODO refactor lat/lng passing to avoid copy pasting code
             if (storeDetail.name == 'Vaughan') {
                 lat = "43.7872497";
                 lng = "-79.5291876";

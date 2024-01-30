@@ -87,8 +87,14 @@ function MapView({ storesList, passPlacesService }) {
             // for each element in storesList collect lat/lng coordinates
             for (let i = 0; i < storesList.length; i++) {
                 const ikeaStore = storesList[i][0];
-                const storeLat = ikeaStore.store.coordinates[1];
-                const storeLng = ikeaStore.store.coordinates[0];
+                var storeLat = ikeaStore.store.coordinates[1];
+                var storeLng = ikeaStore.store.coordinates[0];
+
+                // TODO refactor lat/lng passing to avoid copy pasting code
+                if (ikeaStore.store.name == 'Vaughan') {
+                    storeLat = 43.7872497;
+                    storeLng = -79.5291876;
+                }
 
                 // add lat/lng object to storeCoords for boundary checking
                 storeCoordsTemp.push({ lat: storeLat, lng: storeLng });

@@ -16,10 +16,19 @@ function Marker({ store }) {
     const changeIsShown = useCallback(() => {
         setIsShown(!isShown);
     }, [isShown]);
+    
+    var storeLat = storeIkeaData.store.coordinates[1];
+    var storeLng = storeIkeaData.store.coordinates[0];
+
+    // TODO refactor lat/lng passing to avoid copy pasting code
+    if (storeIkeaData.store.name == 'Vaughan') {
+        storeLat = 43.7872497;
+        storeLng = -79.5291876;
+    }
 
     const pinLocation = {
-        lat: storeIkeaData.store.coordinates[1],
-        lng: storeIkeaData.store.coordinates[0],
+        lat: storeLat,
+        lng: storeLng
     };
 
     return (
