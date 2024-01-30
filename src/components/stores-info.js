@@ -56,7 +56,7 @@ function StoresInfo({ countryName, stores }) {
                               />
                           ) : null
                       )
-                    : null}
+                    : <h2 style={{"color": "red"}}>{"No stores found :("}</h2>}
             </div>
         </div>
     );
