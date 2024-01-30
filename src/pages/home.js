@@ -65,8 +65,8 @@ function Home() {
         var tempDict = {};
         countries.map((c) => {
             tempDict[c.countryCode] = {
-                "skog": c.skog,
-                "skogSmall": c.skogSmall,
+                skog: c.skog,
+                skogSmall: c.skogSmall,
             };
             return null;
         });
@@ -81,7 +81,12 @@ function Home() {
     // need to pull in data from ikea api here also. default to djungelskog
     return (
         <div>
-            <Nav />
+            <Nav
+                onItemUpdate={setItemId}
+                currentCountry={countryCode}
+                currentItemId={itemId}
+                countriesItemDict={countriesItemDict}
+            />
             <Search
                 onSelection={setCountryCode}
                 onItemUpdate={setItemId}
