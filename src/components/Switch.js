@@ -13,8 +13,8 @@ const Switch = ({ isOn, handleToggle, onColor }) => {
       />
       <div className="react-switch-button" />
       <div className="react-switch-labels">
-        <span>SMOL</span>
         <span>BIG</span>
+        <span>SMOL</span>
       </div>
     </label>
   );
