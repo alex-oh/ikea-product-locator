@@ -21,9 +21,11 @@ function Search({
     defaultCountry,
     defaultItemId,
     itemFoundStatus,
+    countriesItemDict
 }) {
     const [searchBar, setSearchBar] = useState(defaultItemId);
     const [countryDropdown, setCountryDropdown] = useState(defaultCountry);
+    const [prevCountry, setPrevCountry] = useState(defaultCountry);
 
     var countrySelection = countries.map((c, i) => (
         <option key={i} value={c.countryCode}>
@@ -43,9 +45,23 @@ function Search({
             .join("");
         const searchItemId = pad("00000000", searchBarValue, true);
         try {
-            onItemUpdate(searchItemId);
+            // if current search item id is same as previously 
+            // found country's djungelskog pid (mapped in countriesItemDict)
+            // aka only the country dropdown has changed but user is still looking for djungelskog
+            if (searchItemId == countriesItemDict[prevCountry]) {
+                // update the searchItemId to be the djungelskog pid for the currently search country
+                onItemUpdate(countriesItemDict[countryDropdown]);
+            }
+            else {
+                // update item to search
+                onItemUpdate(searchItemId);
+            }
+            
             // update country selected
             onSelection(countryDropdown);
+
+            // capture the searched country's state so we can check back on it later
+            setPrevCountry(countryDropdown);
         } catch (error) {
             console.log(error);
         }
@@ -79,6 +95,7 @@ function Search({
                     type="text"
                     name="itemId"
                     id="itemSearch"
+                    key={defaultCountry + defaultItemId}
                     defaultValue={defaultItemId}
                     onChange={setSearchBar}
                 />

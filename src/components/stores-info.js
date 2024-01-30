@@ -19,7 +19,7 @@ function StoresInfo({ countryName, stores }) {
         if (prevStores != stores) {
             setAllStoresDetails([]);
         }
-    }, [stores]);
+    }, [countryName]);
 
     useEffect(() => {
         // set defaults for react geocode
@@ -49,7 +49,7 @@ function StoresInfo({ countryName, stores }) {
                     ? stores.map((store, i) =>
                           service ? (
                               <StoreDetails
-                                  key={store.buCode + store.createdAt}
+                                  key={i + store.createdAt}
                                   storeInfo={store}
                                   service={service}
                                   storeDetailCallback={storeDetailCallback}

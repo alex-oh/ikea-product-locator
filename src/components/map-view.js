@@ -111,8 +111,8 @@ function MapView({ storesList, passPlacesService }) {
 
     // Generate google maps markers for each store coordinate
     var storeMarkers = [];
-    storeMarkers = storesInStock.map((store) => {
-        return <Marker key={store[0].buCode} store={store} />;
+    storeMarkers = storesInStock.map((store, i) => {
+        return <Marker key={i + store[0].buCode + store[0].createdAt} store={store} />;
     });
 
     // from stores, display the pins of the store coordinates
