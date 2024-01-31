@@ -53,7 +53,11 @@ function Nav({
                         className="skog-img"
                         alt="djungelskog"
                     ></img>
-                    <div className="skog-logo" onClick={resetItemSearch}>
+                    <div
+                        className="skog-logo"
+                        title="Click to reset search to Djungelskogs"
+                        onClick={resetItemSearch}
+                    >
                         <h1 className="top">DJUNGELSKOG</h1>
                         <h3 className="bot">HUNTER</h3>
                     </div>
