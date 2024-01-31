@@ -48,9 +48,12 @@ function Search({
             // if current search item id is same as previously 
             // found country's djungelskog pid (mapped in countriesItemDict)
             // aka only the country dropdown has changed but user is still looking for djungelskog
-            if (searchItemId == countriesItemDict[prevCountry]) {
+            if (searchItemId == countriesItemDict[prevCountry].skog) {
                 // update the searchItemId to be the djungelskog pid for the currently search country
-                onItemUpdate(countriesItemDict[countryDropdown]);
+                onItemUpdate(countriesItemDict[countryDropdown].skog);
+            }
+            else if (searchItemId == countriesItemDict[prevCountry].skogSmall){
+                onItemUpdate(countriesItemDict[countryDropdown].skogSmall);
             }
             else {
                 // update item to search

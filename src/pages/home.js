@@ -36,7 +36,7 @@ const getCountryName = (countryCode) => {
 
 function Home() {
     const [countryCode, setCountryCode] = useState(countries[1].countryCode);
-    const [itemId, setItemId] = useState(countries[1].pid);
+    const [itemId, setItemId] = useState(countries[1].skog);
     const [itemFound, setItemFound] = useState(false);
     const [stores, setStores] = useState([]);
     const [countriesItemDict, setCountriesItemDict] = useState(null);
@@ -45,7 +45,9 @@ function Home() {
         try {
             const storesLoaded = await getItem(countryCode, itemId);
             // convert storesLoaded to list
-            const storesList = Object.values(storesLoaded).filter((store) => store.stock != 0);
+            const storesList = Object.values(storesLoaded).filter(
+                (store) => store.stock != 0
+            );
             setStores(storesList);
             if (storesList.length != 0) {
                 setItemFound(true);
@@ -60,13 +62,16 @@ function Home() {
 
     useEffect(() => {
         // convert countries.json into dict for product id correlation
-        var tempDict = {}
+        var tempDict = {};
         countries.map((c) => {
-            tempDict[c.countryCode] = c.pid;
+            tempDict[c.countryCode] = {
+                skog: c.skog,
+                skogSmall: c.skogSmall,
+            };
             return null;
         });
         setCountriesItemDict(tempDict);
-    }, [])
+    }, []);
 
     useEffect(() => {
         loadStores();
@@ -76,7 +81,12 @@ function Home() {
     // need to pull in data from ikea api here also. default to djungelskog
     return (
         <div>
-            <Nav />
+            <Nav
+                onItemUpdate={setItemId}
+                currentCountry={countryCode}
+                currentItemId={itemId}
+                countriesItemDict={countriesItemDict}
+            />
             <Search
                 onSelection={setCountryCode}
                 onItemUpdate={setItemId}
@@ -85,7 +95,10 @@ function Home() {
                 itemFoundStatus={itemFound} // gives us feedback on whether item was found in storesInfo component
                 countriesItemDict={countriesItemDict}
             />
-            <StoresInfo countryName={getCountryName(countryCode)} stores={stores} />
+            <StoresInfo
+                countryName={getCountryName(countryCode)}
+                stores={stores}
+            />
         </div>
     );
 }
