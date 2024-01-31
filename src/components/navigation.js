@@ -47,11 +47,18 @@ function Nav({
 
         return (
             <div className="navigation">
-                <img src={logo} className="skog-img" alt="djungelskog"></img>
-                <div className="skog-logo" onClick={resetItemSearch}>
-                    <h1 className="top">DJUNGELSKOG</h1>
-                    <h3 className="bot">HUNTER</h3>
+                <div className="nav-logo-section">
+                    <img
+                        src={logo}
+                        className="skog-img"
+                        alt="djungelskog"
+                    ></img>
+                    <div className="skog-logo" onClick={resetItemSearch}>
+                        <h1 className="top">DJUNGELSKOG</h1>
+                        <h3 className="bot">HUNTER</h3>
+                    </div>
                 </div>
+                {/* toggle switch */}
                 {currentItemId == countriesItemDict[currentCountry].skog ||
                 currentItemId == countriesItemDict[currentCountry].skogSmall ? (
                     <Switch isOn={bigSkogSwitch} handleToggle={toggleItem} />

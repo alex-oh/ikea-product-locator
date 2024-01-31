@@ -1,10 +1,16 @@
 .navigation {
     padding: .5rem 6rem;
     background-color: #FCF467;
-    display:flex;
+    display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: left;
+}
+
+.nav-logo-section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .skog-logo {
@@ -32,6 +38,10 @@
     width: 7rem;
 }
 
+.toggleSwitch {
+    align-self: flex-end;
+}  
+
 @media (max-width: 900px) {
     .navigation {
         padding: .5rem 3rem;
@@ -41,6 +51,8 @@
 @media (max-width: 600px) {
     .navigation {
         padding: .5rem 1rem;
+        flex-direction: column;
+        align-items: start;
     }
     .skog-img {
         width: 5rem;

@@ -11,12 +11,13 @@
 
 .react-switch {
     cursor: pointer;
-    width: 8em;
-    height: 50px;
+    width: 10em;
+    height: 4em;
     background: #fff;
     position: relative;
     transition: background-color 0.2s;
     border-radius: var(--button-corner);
+    margin-left: auto;
 }
 
 .react-switch .react-switch-button {
@@ -58,4 +59,12 @@
 }
 .react-switch-labels span:last-child {
     right: 0;
+}
+
+@media (max-width: 600px) {
+    .react-switch {
+        width: 8em;
+        height: 3em;
+        margin: 0em auto;
+    }
 }
