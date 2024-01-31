@@ -1,58 +1,61 @@
+:root {
+    --button-corner: 5px;
+}
+
 .react-switch-checkbox {
-  height: 0;
-  width: 0;
-  position: absolute;
-  visibility: hidden;
+    height: 0;
+    width: 0;
+    position: absolute;
+    visibility: hidden;
 }
 
 .react-switch {
-  cursor: pointer;
-  width: 8em;
-  height: 50px;
-  background: #fff;
-  position: relative;
-  transition: background-color 0.2s;
+    cursor: pointer;
+    width: 8em;
+    height: 50px;
+    background: #fff;
+    position: relative;
+    transition: background-color 0.2s;
+    border-radius: var(--button-corner);
 }
 
 .react-switch .react-switch-button {
-  position: absolute;
-  z-index: 1;
-  top: 2px;
-  left: 2px;
-  width: 4em;
-  height: 45px;
-  transition: 0.2s;
-  background: #000;
-  box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
+    position: absolute;
+    z-index: 1;
+    width: 48%;
+    height: 96%;
+    left: 50%;
+    transition: 0.2s;
+    border: solid 2px black;
+    border-radius: var(--button-corner);
 }
 
 .react-switch-checkbox:checked + .react-switch-button {
-  left: calc(100% - 2px);
-  transform: translateX(-100%);
+    transform: translateX(-100%);
 }
 
 .react-switch-checkbox:active + .react-switch-button {
-  width: 60px;
+    width: 60px;
 }
 
 .react-switch-labels {
-  display: relative;
-  z-index: 0;
-  height: 100%;
-  font: 14pt "Segoe UI", Verdana, sans-serif;
+    display: relative;
+    z-index: 0;
+    height: 100%;
+    font-weight: 600;
 }
 
 .react-switch-labels span {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50%;
-  height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
 }
 .react-switch-labels span:first-child {
-  left: 0;
+    left: 0;
 }
 .react-switch-labels span:last-child {
-  right: 0;
+    right: 0;
 }
