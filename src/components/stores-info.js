@@ -19,7 +19,7 @@ function StoresInfo({ countryName, stores }) {
         if (prevStores != stores) {
             setAllStoresDetails([]);
         }
-    }, [countryName]);
+    }, [countryName, stores]);
 
     useEffect(() => {
         // set defaults for react geocode
