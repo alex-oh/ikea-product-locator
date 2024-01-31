@@ -38,8 +38,8 @@ I wanted a quick way to find DJUNGELSKOG near me since it was very cute. This to
 ## Future Improvements
 - Handle API responses more predictably - sometimes, an API request is rejected but the component still renders, without that requested data.
 - Use Google Maps API directly instead of using libraries for more control over maps objects (FMarker, FOverlay, etc are a bit hard to work with). This might simplify the logic used to work with the maps components.
-- Feature: correlate ikea product numbers across different countries.
-- Feature: toggle switch to search for big djungelskog or small djungelskog on command
+- Feature: correlate ikea product numbers across different countries (works for djungelskog products only currently)
+- ~~Feature: toggle switch to search for big djungelskog or small djungelskog on command~~
 - Improve visual search result feedback to improve user experience
 
 ## What I learned
