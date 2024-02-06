@@ -26,7 +26,7 @@ Deployed Site: [djungelskog.netlify.app](https://djungelskog.netlify.app)
 - [ikea-availability-checker](https://github.com/Ephigenia/ikea-availability-checker) - Ikea API library
 - [Google Maps Places API](https://developers.google.com/maps/documentation/places/web-service/overview)
 - [react-geocode](https://github.com/shukerullah/react-geocode) - React library for Google Maps Geocode API
-- [react-google-maps]() - React library for Google Maps Maps API
+- [react-google-maps](https://github.com/JustFly1984/react-google-maps-api) - React library for Google Maps Maps API
 
 ## Background
 "DJUNGELSKOG Soft toy, brown bear" is a very cute stuffed animal product that Ikea sells. However, many people think that it's cute, and on top of that, DJUNGELSKOG is not sold in every country, even if there are Ikea stores there. These two points mean that locating DJUNGELSKOG can be more difficult than expected.
