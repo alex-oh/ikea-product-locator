@@ -41,6 +41,9 @@ I wanted a quick way to find DJUNGELSKOG near me since it was very cute. This to
 - Feature: correlate ikea product numbers across different countries (works for djungelskog products only currently)
 - ~~Feature: toggle switch to search for big djungelskog or small djungelskog on command~~
 - Improve visual search result feedback to improve user experience
+- ~~Implement cache system to reduce api consumption (primarily google maps places/geocoding cuz it's so expensive)~~
 
 ## What I learned
 I learned a lot more about using callback functions to pass data between components more easily, as well as handling asynchronous requests/responses in varying capacities. In my efforts to use different portions of the Google Maps API (Maps, Places, Geocoder) with the help of various libraries and documentation, I developed a much stronger conceptualization of APIs and their usage. Lastly, I grew far more comfortable with `useState` and `useEffect` and passing props into components.
+
+Update 4/25/2024: added a simple caching system using useContext/createContext hooks.
