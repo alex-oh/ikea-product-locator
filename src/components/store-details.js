@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./store-details.css";
-
+import CacheContext from "../data/cache-context.js";
 import { fromPlaceId } from "react-geocode";
 
 const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
@@ -19,6 +19,7 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
     const [storeAddress, setStoreAddress] = useState(null);
     const [placeId, setPlaceId] = useState("");
     const [placeDetails, setPlaceDetails] = useState(null);
+    const { cacheData, updateCacheData } = useContext(CacheContext); // cache
 
     const getPlaceIdFromLatLng = async (lat, lng) => {
         // Get store's placeId from latitude & longitude.
@@ -26,14 +27,28 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
             // find the ikea store closest to input lat/lng coordinates
             // make a placeId request using the bounds and keyword "ikea"
             if (service != null) {
-                var request = {
-                    query: "ikea",
-                    fields: ["name", "place_id"],
-                    locationBias: new window.google.maps.LatLng(lat, lng),
-                };
-                service.findPlaceFromQuery(request, function (results, status) {
-                    setPlaceId(results[0].place_id);
-                });
+                const latlngKey = `${lat}-${lng}`;
+                if (latlngKey in cacheData) {
+                    // check if data is in cache first
+                    setPlaceId(cacheData[latlngKey]); // if lat/lng in cache, then return cache value
+                } else {
+                    // if data is not in cache, then request from API and add new value to the cache
+                    var request = {
+                        query: "ikea",
+                        fields: ["name", "place_id"],
+                        locationBias: new window.google.maps.LatLng(lat, lng),
+                    };
+                    service.findPlaceFromQuery(
+                        request,
+                        function (results, status) {
+                            setPlaceId(results[0].place_id);
+
+                            const newData = {};
+                            newData[latlngKey] = results[0].place_id;
+                            updateCacheData(newData); // add value to the cache
+                        }
+                    );
+                }
             } else {
                 console.log("service is null");
             }
@@ -43,7 +58,6 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
     };
 
     const formatAddressResult = (results) => {
-        // console.log(results[0]);
         const a = results[0];
         const address = a.formatted_address;
         const { city, state, country } = results[0].address_components.reduce(
@@ -75,7 +89,7 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
             var lng = storeDetail.coordinates[0];
 
             // TODO refactor lat/lng passing to avoid copy pasting code
-            if (storeDetail.name == 'Vaughan') {
+            if (storeDetail.name == "Vaughan") {
                 lat = "43.7872497";
                 lng = "-79.5291876";
             }
@@ -84,12 +98,28 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
     }, []);
 
     // request the address of the placeId given, using fromPlaceId()
-    useEffect(() => {
-        async function getInfoFromPlaceId() {
-            if (placeId != "") {
-                try {
+    async function getInfoFromPlaceId() {
+        if (placeId != "") {
+            try {
+                if (placeId in cacheData) {
+                    // console.log(`${placeId} is in cache`);
+                    // check cache first for placeId key
+                    const results = cacheData[placeId]["results"];
+                    formatAddressResult(results);
+
+                    const place = cacheData[placeId]["place"];
+                    // set component state to place details for rendering
+                    setPlaceDetails(place);
+                    // send place details data to store-info level
+                    storeDetailCallback([storeInfo, place]);
+                } else {
+                    // cache data doesnt exist -> request the data from the google maps API
+                    const newData = {};
+                    newData[placeId] = {};
+
                     const { results } = await fromPlaceId(`${placeId}`);
                     formatAddressResult(results);
+                    newData[placeId]["results"] = results;
 
                     const detailsRequest = {
                         placeId: `${placeId}`,
@@ -99,17 +129,24 @@ const StoreDetails = ({ storeInfo, service, storeDetailCallback }) => {
                     service.getDetails(
                         detailsRequest,
                         function (place, status) {
+                            // add place to the cache
+                            newData[placeId]["place"] = place;
                             // set component state to place details for rendering
                             setPlaceDetails(place);
                             // send place details data to store-info level
                             storeDetailCallback([storeInfo, place]);
                         }
                     );
-                } catch (e) {
-                    console.log(e);
+
+                    // add data to the cache for the placeId
+                    updateCacheData(newData);
                 }
+            } catch (e) {
+                console.log(e);
             }
         }
+    }
+    useEffect(() => {
         getInfoFromPlaceId();
     }, [placeId]);
 
