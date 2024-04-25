@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import Nav from "../components/navigation";
 import StoresInfo from "../components/stores-info";
 import Search from "../components/search";
+import { CacheProvider } from "../data/cache-provider"; // caching mechanism
 
 import countries from "../data/countries.json";
 
@@ -81,24 +82,26 @@ function Home() {
     // need to pull in data from ikea api here also. default to djungelskog
     return (
         <div>
-            <Nav
-                onItemUpdate={setItemId}
-                currentCountry={countryCode}
-                currentItemId={itemId}
-                countriesItemDict={countriesItemDict}
-            />
-            <Search
-                onSelection={setCountryCode}
-                onItemUpdate={setItemId}
-                defaultCountry={countryCode}
-                defaultItemId={itemId}
-                itemFoundStatus={itemFound} // gives us feedback on whether item was found in storesInfo component
-                countriesItemDict={countriesItemDict}
-            />
-            <StoresInfo
-                countryName={getCountryName(countryCode)}
-                stores={stores}
-            />
+            <CacheProvider>
+                <Nav
+                    onItemUpdate={setItemId}
+                    currentCountry={countryCode}
+                    currentItemId={itemId}
+                    countriesItemDict={countriesItemDict}
+                />
+                <Search
+                    onSelection={setCountryCode}
+                    onItemUpdate={setItemId}
+                    defaultCountry={countryCode}
+                    defaultItemId={itemId}
+                    itemFoundStatus={itemFound} // gives us feedback on whether item was found in storesInfo component
+                    countriesItemDict={countriesItemDict}
+                />
+                <StoresInfo
+                    countryName={getCountryName(countryCode)}
+                    stores={stores}
+                />
+            </CacheProvider>
         </div>
     );
 }
